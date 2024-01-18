@@ -1,5 +1,34 @@
-## Next.js App Router Course - Starter
+testControler.tsx
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+import clientPromise from './index.tsx'
+let client;
+let db;
+let test;
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+async function initDb(){
+
+    try {
+        client = await clientPromise;
+        db = await client.db();
+        test = db.collecttion('handcraft')
+    } catch (error) {
+            throw new error('failed to stablishc connection to the tb')
+    }
+}
+
+index.tsx
+
+import {MongoClient} from 'mongodb'
+const URI = process.env.URI
+const option =  {}
+
+if (!URI) throw new Error('No URI FOUND');
+
+let client = new MongoClient(URI, option)
+
+let clientPromise;
+
+
+clientPromise = client.connect();
+
+export default clientPromise;
